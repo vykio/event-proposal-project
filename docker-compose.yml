@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  app:
+    container_name: backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_NAME: event-proposal
+      DATABASE_USER: dev
+      DATABASE_PASSWORD: dev
+      DATABASE_URI: mongodb://database:27017
+    ports:
+      - '4000:4000'
+    depends_on:
+      - database
+  
+  database:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: event-proposal
+      MONGO_INITDB_ROOT_USERNAME: dev
+      MONGO_INITDB_ROOT_PASSWORD: dev
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data: {}
