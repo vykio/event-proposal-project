@@ -1,10 +1,14 @@
-FROM node:22-alpine as builder
+FROM node:22-alpine
+WORKDIR /app
 
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
+# Copy only the files needed to install dependencies
+COPY package.json package-lock.json* ./
+
+# Install dependencies with the preferred package manager
+RUN npm ci
+
+# Copy the rest of the files
 COPY . .
-RUN npm run build
 
-# Define the command to start your application in development mode
-ENTRYPOINT ["/bin/sh", "-c", "npm run dev"]
+# Run development build with the preferred package manager
+CMD npm run dev
