@@ -3,7 +3,7 @@ services:
   app:
     container_name: backend
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     environment:
       DATABASE_NAME: event-proposal
@@ -14,6 +14,9 @@ services:
       - '4000:4000'
     depends_on:
       - database
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
   
   database:
     image: mongo
