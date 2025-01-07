@@ -26,6 +26,16 @@ export class UserService {
         return user;
     }
 
+    async findUserByUsername(username: string): Promise<UserPayload> {
+        const user = await this.userModel.findOne({ username: username });
+
+        if (!user) {
+            throw new NotFoundException(`User with username:${username} not found`);
+        }
+
+        return user;
+    }
+
     async listUsers(): Promise<UserPayload[]> {
         const users = await this.userModel.find();
         return users;
