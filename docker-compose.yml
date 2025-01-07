@@ -9,6 +9,7 @@ services:
       DATABASE_USER: dev
       DATABASE_PASSWORD: dev
       DATABASE_URI: mongodb://database:27017
+      JWT_SECRET: ch4ng3_m3
     ports:
       - '4000:4000'
     depends_on:
