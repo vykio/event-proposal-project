@@ -2,7 +2,7 @@ FROM node:22-alpine
 WORKDIR /app
 
 # Copy only the files needed to install dependencies
-COPY package.json package-lock.json* ./
+COPY package.json package-lock.json* ./ 
 
 # Install dependencies with the preferred package manager
 RUN npm ci
