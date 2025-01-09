@@ -1,8 +1,8 @@
 services:
-  app:
+  backend:
     container_name: backend
     build:
-      context: .
+      context: backend
       dockerfile: Dockerfile
     environment:
       DATABASE_NAME: event-proposal
@@ -15,8 +15,22 @@ services:
     depends_on:
       - database
     volumes:
-      - .:/app
+      - ./backend:/app
   
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    environment:
+      API_URL: http://backend/api
+    ports:
+      - '4001:3000'
+    depends_on:
+      - database
+    volumes:
+      - ./frontend:/app
+
   database:
     image: mongo
     container_name: mongodb
